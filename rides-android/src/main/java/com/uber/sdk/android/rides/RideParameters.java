@@ -42,6 +42,7 @@ public class RideParameters implements Parcelable {
     @Nullable private final Double dropoffLongitude;
     @Nullable private final String dropoffNickname;
     @Nullable private final String dropoffAddress;
+    private final int seatCount;
     @Nullable private String userAgent;
 
     public static final Creator<RideParameters> CREATOR = new Creator<RideParameters>() {
@@ -73,6 +74,7 @@ public class RideParameters implements Parcelable {
         dest.writeSerializable(dropoffLongitude);
         dest.writeString(dropoffNickname);
         dest.writeString(dropoffAddress);
+        dest.writeInt(seatCount);
         dest.writeString(userAgent);
     }
 
@@ -87,6 +89,7 @@ public class RideParameters implements Parcelable {
         dropoffLongitude = (Double) in.readSerializable();
         dropoffNickname = in.readString();
         dropoffAddress = in.readString();
+        seatCount = in.readInt();
         userAgent = in.readString();
     }
 
@@ -99,7 +102,8 @@ public class RideParameters implements Parcelable {
             @Nullable Double dropoffLatitude,
             @Nullable Double dropoffLongitude,
             @Nullable String dropoffNickname,
-            @Nullable String dropoffAddress) {
+            @Nullable String dropoffAddress,
+            int seatCount) {
         this.isPickupMyLocation = isPickupMyLocation;
         this.productId = productId;
         this.pickupLatitude = pickupLatitude;
@@ -110,6 +114,7 @@ public class RideParameters implements Parcelable {
         this.dropoffLongitude = dropoffLongitude;
         this.dropoffNickname = dropoffNickname;
         this.dropoffAddress = dropoffAddress;
+        this.seatCount = seatCount;
     }
 
     /**
@@ -193,6 +198,13 @@ public class RideParameters implements Parcelable {
     }
 
     /**
+     * @return the number of seats required for uberPOOL. Null if no dropoff location specified.
+     */
+    public int getSeatCount() {
+        return seatCount;
+    }
+
+    /**
      * @return the user agent.
      */
     @Nullable
@@ -223,6 +235,7 @@ public class RideParameters implements Parcelable {
         @Nullable private Double dropoffLongitude;
         @Nullable private String dropoffNickname;
         @Nullable private String dropoffAddress;
+        private int seatCount;
         @Nullable private String userAgent;
 
         /**
@@ -288,13 +301,24 @@ public class RideParameters implements Parcelable {
         }
 
         /**
+         * Sets the number of seats required for uberPOOL. Default and maximum value is 2.
+         * @return this {@link Builder} instance
+         */
+        public RideParameters.Builder setSeatCount(int seatCount) {
+            this.seatCount = seatCount;
+            return this;
+        }
+
+
+
+        /**
          * Builds an {@link RideParameters} object.
          * @return the {@link RideParameters} generated from the parameters
          */
         public RideParameters build() {
             return new RideParameters(isPickupMyLocation, productId, pickupLatitude, pickupLongitude,
                     pickupNickname, pickupAddress, dropoffLatitude, dropoffLongitude, dropoffNickname,
-                    dropoffAddress);
+                    dropoffAddress, seatCount);
         }
     }
 }
