@@ -63,7 +63,7 @@ def test = [
 
 def uber = [
         uberCore: "com.uber.sdk:uber-core:${versions.uberJava}",
-        uberRides: "com.uber.sdk:uber-rides:${versions.uberJava}",
+        uberRides: "com.github.FelipeBerbert:rides-java-sdk:0.8.1"
 ]
 
 ext.deps = [

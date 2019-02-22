@@ -27,7 +27,11 @@ buildscript {
         classpath deps.build.gradlePlugins.release
     }
 }
-
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
 task wrapper(type: Wrapper) {
     gradleVersion = deps.build.gradleVersion
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
