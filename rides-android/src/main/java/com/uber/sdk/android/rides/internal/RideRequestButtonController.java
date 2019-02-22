@@ -119,6 +119,7 @@ public class RideRequestButtonController {
                         rideParameters.getDropoffLatitude().floatValue(),
                         rideParameters.getDropoffLongitude().floatValue(),
                         rideParameters.getProductId(),
+                        rideParameters.getSeatCount(),
                         pendingDelegate);
 
                 this.pendingDelegate = pendingDelegate;
@@ -183,10 +184,11 @@ public class RideRequestButtonController {
             final float endLatitude,
             final float endLongitude,
             final @Nullable String productId,
+            final int seatCount,
             final TimePriceDelegate delegate) {
 
         priceEstimateCall = ridesService.getPriceEstimates(startLatitude, startLongitude,
-                endLatitude, endLongitude);
+                endLatitude, endLongitude, seatCount);
 
         priceEstimateCall.enqueue(new Callback<PriceEstimatesResponse>() {
             @Override
